@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
   const classes = useStyles();
   const [state, setState] = useState({
     email: "",
@@ -62,6 +62,7 @@ export default function SignIn() {
         console.log(res.data);
         if(res.data.message === "admin"){
             localStorage.setItem("token","admin")
+            return props.changeView("Dashboard");
         }
     }).catch((err) => {
         console.log(err);

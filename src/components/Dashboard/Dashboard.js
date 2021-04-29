@@ -18,6 +18,7 @@ import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { mainListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
@@ -126,6 +127,10 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const logout = () => {
+    localStorage.clear();
+    // window.location.reload();
+  };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
 
   return (
@@ -145,10 +150,8 @@ export default function Dashboard() {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             ParkiZone Admin Dashboard
           </Typography>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <NotificationsIcon />
-            </Badge>
+          <IconButton color="inherit" onClick={() => logout()}>
+              <ExitToAppIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
