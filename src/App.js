@@ -1,13 +1,9 @@
 import './App.css';
-
+import Signin from './components/Signin'
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-         ParkiZone admin-side
-        </p>
-      </header>
+      <Signin/>
     </div>
   );
 }
