@@ -9,6 +9,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Swal from 'sweetalert2'
 const axios = require('axios');
 
 function Copyright() {
@@ -58,11 +59,18 @@ export default function SignIn(props) {
 
   const handleSignin = () => {
     var obj = { email: state.email, password: state.password}
-    axios.post("http://localhost:3001/api/ParkiZone/login", obj).then((res) => {
+    axios.post("http://localhost:3000/api/ParkiZone/login", obj).then((res) => {
         console.log(res.data);
         if(res.data.message === "admin"){
             localStorage.setItem("token","admin")
             return props.changeView("Dashboard");
+        }else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong! Email or password incorrect . Please try again',
+        
+          })
         }
     }).catch((err) => {
         console.log(err);
