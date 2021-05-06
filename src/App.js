@@ -8,13 +8,17 @@ export default function App() {
     view: "signin"
   });
 
-  // useEffect(() => {
-  //  if (localStorage.getItem("token") === "admin"){
-  //     setState({ view: "Dashboard" });
-  //   }else if (localStorage.getItem("token") !== "admin"){
-  //     setState({ view: "signin" });
-  //   }
-  // });
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      if (localStorage.getItem("token") === "admin"){
+         setState({ view: "Dashboard" });
+       }else if (localStorage.getItem("token") !== "admin"){
+         console.log(localStorage.getItem("token"));
+         setState({ view: "signin" });
+       }
+  }, 1000);
+  return () => window.clearTimeout(timer );
+  });
 
   const changeView = (view) => {
     setState({

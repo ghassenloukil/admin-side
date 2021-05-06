@@ -23,13 +23,24 @@ import { mainListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import Users from './Users';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import PeopleIcon from '@material-ui/icons/People';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import LayersIcon from '@material-ui/icons/Layers';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        ParkiZone
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -121,6 +132,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [view, setView] = React.useState('home');
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -129,9 +142,51 @@ export default function Dashboard() {
   };
   const logout = () => {
     localStorage.clear();
+    console.log('clickedddddddd')
     // window.location.reload();
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  const changeView = (view) => {
+    setView(view)
+  }
+  const handleViews = () => {
+    if(view === "home"){
+      return (
+        <Grid item xs={12} md={4} lg={3}>
+        <Paper className={fixedHeightPaper}>
+          <Deposits />
+        </Paper>
+      </Grid>
+      )
+    }
+    if(view === "client"){
+      return (
+        <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <Users />
+              </Paper>
+            </Grid>
+      )
+    }
+    if(view === "orders"){
+      return (
+        <Grid item xs={12}>
+              <Paper className={classes.paper}>
+                <Orders />
+              </Paper>
+            </Grid>
+      )
+    }
+    if(view ==="reports"){
+      return (
+        <Grid item xs={12} md={8} lg={9}>
+              <Paper className={fixedHeightPaper}>
+                <Chart />
+              </Paper>
+            </Grid>
+      )
+    }
+  }
 
   return (
     <div className={classes.root}>
@@ -168,7 +223,42 @@ export default function Dashboard() {
           </IconButton>
         </div>
         <Divider />
-        <List>{mainListItems}</List>
+
+        <List>
+        <div>
+    <ListItem button>
+      <ListItemIcon>
+        <DashboardIcon />
+      </ListItemIcon>
+      <ListItemText primary="Dashboard" onClick={() => changeView("home")}/>
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+        <ShoppingCartIcon />
+      </ListItemIcon >
+      <ListItemText primary="Orders" onClick={() => changeView("orders")}/>
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+        <PeopleIcon />
+      </ListItemIcon>
+      <ListItemText primary="Customers" onClick={() => changeView("client")}/>
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+        <BarChartIcon />
+      </ListItemIcon>
+      <ListItemText primary="Reports" onClick={() => changeView("reports")}/>
+    </ListItem>
+    <ListItem button>
+      <ListItemIcon>
+        <LayersIcon />
+      </ListItemIcon>
+      <ListItemText primary="Integrations" />
+    </ListItem>
+  </div>
+        </List>
+
         <Divider />
         {/* <List>{secondaryListItems}</List> */}
       </Drawer>
@@ -176,26 +266,27 @@ export default function Dashboard() {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3}>
+
             {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
+
+            {/* <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
                 <Chart />
               </Paper>
-            </Grid>
+            </Grid> */}
+
             {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
+
+            {/* <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
                 <Deposits />
               </Paper>
-            </Grid>
+            </Grid> */}
+            
             {/* Recent Orders */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <Orders />
-              </Paper>
-            </Grid>
+            {handleViews()}
           </Grid>
-          <Box pt={4}>
+          <Box pt={35}>
             <Copyright />
           </Box>
         </Container>
