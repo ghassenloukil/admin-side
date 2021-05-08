@@ -162,15 +162,15 @@ export default function Dashboard() {
     setView(view)
   }
   const handleViews = () => {
-    if(view === "home"){
-      return (
-        <Grid item xs={12} md={4} lg={3}>
-        <Paper className={fixedHeightPaper}>
-          <Deposits />
-        </Paper>
-      </Grid>
-      )
-    }
+    // if(view === "home"){
+    //   return (
+    //     <Grid item xs={12} md={4} lg={3}>
+    //     <Paper className={fixedHeightPaper}>
+    //       <Deposits />
+    //     </Paper>
+    //   </Grid>
+    //   )
+    // }
     if(view === "client"){
       return (
         <Grid item xs={12}>
