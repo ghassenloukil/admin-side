@@ -46,11 +46,22 @@ function Copyright() {
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
+  img: {
+    width: "18%",
+    padding: '0 60px',
+    paddingRight: 74
+   
+    
+
+  },
   root: {
     display: 'flex',
+    
   },
   toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
+    paddingRight: 34,
+    backgroundColor:"#081845"
+     // keep right padding when drawer closed
   },
   toolbarIcon: {
     display: 'flex',
@@ -64,7 +75,9 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
+      
     }),
+    
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -72,7 +85,10 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
+      
     }),
+    color:'#4AC7EE'
+    
   },
   menuButton: {
     marginRight: 36,
@@ -82,6 +98,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+    color:'white'
   },
   drawerPaper: {
     position: 'relative',
@@ -197,7 +214,10 @@ export default function Dashboard() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          
+          
+    
+          <Typography  component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             ParkiZone Admin Dashboard
           </Typography>
           <IconButton color="inherit" onClick={() => logout()}>
@@ -251,12 +271,16 @@ export default function Dashboard() {
       </ListItemIcon>
       <ListItemText primary="Integrations" />
     </ListItem>
+    
   </div>
         </List>
+        
 
         <Divider />
         {/* <List>{secondaryListItems}</List> */}
+        
       </Drawer>
+      
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
