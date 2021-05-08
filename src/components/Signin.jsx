@@ -12,6 +12,7 @@ import Container from '@material-ui/core/Container';
 import Swal from 'sweetalert2'
 const axios = require('axios');
 
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -26,15 +27,26 @@ function Copyright() {
 }
 
 const useStyles = makeStyles((theme) => ({
+  img:{
+    left:"100%", position: 'relative'
+
+  },
+  back:{
+    backgroundColor: "white"
+  },
   paper: {
     marginTop: theme.spacing(8),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    color:"white",
+    backgroundColor:"white",
+    
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#081845",
+    color :'#F9C90E'
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -42,6 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: "#081845"
   },
 }));
 
@@ -77,9 +90,11 @@ export default function SignIn(props) {
     })  
 }
   return (
-    <Container component="main" maxWidth="xs">
+    <div className={classes.back}>
+    <Container   component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
+        
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -126,5 +141,6 @@ export default function SignIn(props) {
         <Copyright />
       </Box>
     </Container>
+    </div>
   );
 }
