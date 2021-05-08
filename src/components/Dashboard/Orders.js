@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState, useEffect} from 'react';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -7,19 +7,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Title from './Title';
+const axios = require('axios');
 
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
 
-const rows = [
-  createData(0, '16 Mar, 2019', 'Elvis Presley', 'Tupelo, MS', 'VISA ⠀•••• 3719', 312.44),
-  createData(1, '16 Mar, 2019', 'Paul McCartney', 'London, UK', 'VISA ⠀•••• 2574', 866.99),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
-  createData(3, '16 Mar, 2019', 'Michael Jackson', 'Gary, IN', 'AMEX ⠀•••• 2000', 654.39),
-  createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'Long Branch, NJ', 'VISA ⠀•••• 5919', 212.79),
-];
+
+
 
 function preventDefault(event) {
   event.preventDefault();
@@ -33,6 +26,19 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Orders() {
   const classes = useStyles();
+  const [state, setState] = useState({
+    data: []
+});
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+        axios.get('http://localhost:3000/api/ParkiZone/orders').then((response) =>{
+            setState({ data: response.data });
+        }).catch((error) =>{
+            console.log(error);
+        })
+  }, 1000);
+  return () => window.clearTimeout(timer );
+  });
   return (
     <React.Fragment>
       <Title>Recent Orders</Title>
@@ -40,19 +46,18 @@ export default function Orders() {
         <TableHead>
           <TableRow>
             <TableCell>Date</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Ship To</TableCell>
-            <TableCell>Payment Method</TableCell>
-            <TableCell align="right">Sale Amount</TableCell>
+            <TableCell>hour</TableCell>
+            <TableCell>Order ID</TableCell>
+            <TableCell>User ID</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {state.data.map((row) => (
             <TableRow key={row.id}>
               <TableCell>{row.date}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.shipTo}</TableCell>
-              <TableCell>{row.paymentMethod}</TableCell>
+              <TableCell>{row.hour}</TableCell>
+              <TableCell>{row.orderId}</TableCell>
+              <TableCell>{row.user_id}</TableCell>
               <TableCell align="right">{row.amount}</TableCell>
             </TableRow>
           ))}

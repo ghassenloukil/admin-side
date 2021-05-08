@@ -11,17 +11,8 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 const axios = require('axios');
 
 // Generate Order Data
-function createData(id, date, name, shipTo, paymentMethod, amount) {
-  return { id, date, name, shipTo, paymentMethod, amount };
-}
 
-const rows = [
-  createData(0, '16 Mar, 2019', 'Elvis Presley', 'Tupelo, MS', 'VISA ⠀•••• 3719', 312.44),
-  createData(1, '16 Mar, 2019', 'Paul McCartney', 'London, UK', 'VISA ⠀•••• 2574', 866.99),
-  createData(2, '16 Mar, 2019', 'Tom Scholz', 'Boston, MA', 'MC ⠀•••• 1253', 100.81),
-  createData(3, '16 Mar, 2019', 'Michael Jackson', 'Gary, IN', 'AMEX ⠀•••• 2000', 654.39),
-  createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'Long Branch, NJ', 'VISA ⠀•••• 5919', 212.79),
-];
+
 
 function preventDefault(event) {
   event.preventDefault();
@@ -42,17 +33,18 @@ export default function Orders() {
 
 useEffect(() => {
     const timer = window.setTimeout(() => {
-        axios.get('http://localhost:3000/api/ParkiZone/users').then((response) =>{
+        axios.get('http://localhost:3000/api/ParkiZone/allusers').then((response) =>{
             setState({ data: response.data });
+            console.log('userrrrrssss',response);
         }).catch((error) =>{
             console.log(error);
         })
   }, 1000);
 
   return () => window.clearTimeout(timer );
-  });
+  },[]);
 const deleteUser = (user) => {
-    axios.delete(`http://localhost:3000/api/ParkiZone/delete/${user.id}`).then((response) =>{
+    axios.delete(`http://localhost:3000/api/ParkiZone/delete/${user.userId}`).then((response) =>{
         console.log(response);
     }).catch((error) =>{
         console.log(error);
@@ -74,13 +66,14 @@ const deleteUser = (user) => {
         </TableHead>
         <TableBody>
           {state.data.map((user) => (
-            <TableRow key={user.id}>
-              <TableCell>{user.id}</TableCell>
+            <TableRow key={user.userId}>
+              <TableCell>{user.userId}</TableCell>
               <TableCell>{user.username}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.createdAt}</TableCell>
               <TableCell>{user.points}</TableCell>
               <TableCell onClick={()=>deleteUser(user)}><DeleteForeverIcon/></TableCell>
+              {console.log(user)}
             </TableRow>
           ))}
         </TableBody>
